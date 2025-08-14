@@ -7,7 +7,8 @@ export const command = {
         .setIntegrationTypes(1)
         .setContexts(0, 1, 2),
 	async execute(interaction, userDB, fisher) {
-        const user = await userDB.getUser(interaction.user.id);
+        if (!(await userDB.exists(interaction.user.id))) await userDB.addUser(interaction.user.id);
+        var user = await userDB.getUser(interaction.user.id);
 
         let embed = new EmbedBuilder()
             .setAuthor({
