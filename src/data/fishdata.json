@@ -1,0 +1,181 @@
+{
+    "level_xp_multiplier": 1.05,
+    "levelup_text": [
+        { "level": 10, "text": "Unlocked the **River**" },
+        { "level": 20, "text": "Unlocked the **Beach**" },
+        { "level": 30, "text": "Unlocked the **Sea**" }
+    ],
+    "fish": [
+        {
+            "name": "Rocky Stream",
+            "description": "The starter spot; a small stream to catch for small freshwater fish.",
+            "level_required": 0,
+            "total_chance": 410,
+            "catch_chances": [ 100, 100, 90, 70, 50 ],
+            "fish": [
+                {
+                    "display_name": "Largemouth Bass",
+                    "weight_max": 12,
+                    "weight_min": 1,
+                    "weight_bias": -0.78,
+                    "value": 10,
+                    "total_chance": 80,
+                    "tier_chances": [ 50, 20, 10, 0, 0 ]
+                },
+                {
+                    "display_name": "Perch",
+                    "weight_max": 2,
+                    "weight_min": 0.2,
+                    "weight_bias": -1.5,
+                    "value": 10,
+                    "total_chance": 80,
+                    "tier_chances": [ 50, 20, 10, 0, 0 ]
+                },
+                {
+                    "display_name": "Salmon",
+                    "weight_max": 16,
+                    "weight_min": 2,
+                    "weight_bias": -0.94,
+                    "value": 5,
+                    "total_chance": 80,
+                    "tier_chances": [ 50, 20, 10, 0, 0 ]
+                },
+                {
+                    "display_name": "Rainbow Trout",
+                    "weight_max": 20,
+                    "weight_min": 0.5,
+                    "weight_bias": -1.69,
+                    "value": 10,
+                    "total_chance": 80,
+                    "tier_chances": [ 50, 20, 10, 0, 0 ]
+                },
+                {
+                    "display_name": "Pike",
+                    "weight_max": 20,
+                    "weight_min": 1,
+                    "weight_bias": -1.9,
+                    "value": 15,
+                    "total_chance": 85,
+                    "tier_chances": [ 50, 20, 10, 5, 0 ]
+                }
+            ]
+        },
+        {
+            "name": "River",
+            "description": "A small river to catch bigger freshwater fish.",
+            "level_required": 10,
+            "total_chance": 620,
+            "catch_chances": [ 100, 100, 90, 70, 50, 20, 100, 90 ],
+            "fish": [
+                {
+                    "display_name": "Largemouth Bass",
+                    "weight_max": 12,
+                    "weight_min": 1,
+                    "weight_bias": -0.68,
+                    "value": 10,
+                    "total_chance": 100,
+                    "tier_chances": [ 50, 30, 15, 5, 0 ]
+                },
+                {
+                    "display_name": "Carp",
+                    "weight_max": 60,
+                    "weight_min": 2,
+                    "weight_bias": -1.24,
+                    "value": 10,
+                    "total_chance": 100,
+                    "tier_chances": [ 50, 30, 15, 5, 0 ]
+                },
+                {
+                    "display_name": "Salmon",
+                    "weight_max": 16,
+                    "weight_min": 2,
+                    "weight_bias": -0.84,
+                    "value": 5,
+                    "total_chance": 100,
+                    "tier_chances": [ 50, 30, 15, 5, 0 ]
+                },
+                {
+                    "display_name": "Rainbow Trout",
+                    "weight_max": 20,
+                    "weight_min": 0.5,
+                    "weight_bias": -1.59,
+                    "value": 10,
+                    "total_chance": 100,
+                    "tier_chances": [ 50, 30, 15, 5, 0 ]
+                },
+                {
+                    "display_name": "Pike",
+                    "weight_max": 20,
+                    "weight_min": 1,
+                    "weight_bias": -1.8,
+                    "value": 15,
+                    "total_chance": 102,
+                    "tier_chances": [ 50, 30, 15, 7, 0 ]
+                },
+                {
+                    "display_name": "Treasure Chest",
+                    "weight_max": 20,
+                    "weight_min": 10,
+                    "weight_bias": 0,
+                    "value": 30,
+                    "total_chance": 11,
+                    "tier_chances": [ 0, 0, 10, 1, 0 ]
+                },
+                {
+                    "display_name": "Perch",
+                    "weight_max": 2,
+                    "weight_min": 0.2,
+                    "weight_bias": -1.4,
+                    "value": 10,
+                    "total_chance": 104,
+                    "tier_chances": [ 50, 30, 17, 7, 0 ]
+                },
+                {
+                    "display_name": "Bluegill",
+                    "weight_max": 4.5,
+                    "weight_min": 0.1,
+                    "weight_bias": -3.9,
+                    "value": 15,
+                    "total_chance": 104,
+                    "tier_chances": [ 50, 30, 17, 7, 0 ]
+                }
+            ]
+        },
+        {
+            "name": "Beach",
+            "description": "A jetty on the beach to catch saltwater fish.\n    > !!UNFINISHED!!",
+            "level_required": 20,
+            "total_chance": 20,
+            "catch_chances": [ 20 ],
+            "fish": [
+                {
+                    "display_name": "Treasure Chest",
+                    "weight_max": 40,
+                    "weight_min": 10,
+                    "weight_bias": 0.1,
+                    "value": 35,
+                    "total_chance": 21,
+                    "tier_chances": [ 0, 0, 15, 5, 1 ]
+                }
+            ]
+        },
+        {
+            "name": "Sea",
+            "description": "A small fishing boat further out at sea to catch bigger saltwater fish.\n    > !!UNFINISHED!!",
+            "level_required": 30,
+            "total_chance": 20,
+            "catch_chances": [ 20 ],
+            "fish": [
+                {
+                    "display_name": "Treasure Chest",
+                    "weight_max": 40,
+                    "weight_min": 10,
+                    "weight_bias": 0.1,
+                    "value": 35,
+                    "total_chance": 23,
+                    "tier_chances": [ 0, 0, 15, 5, 3 ]
+                }
+            ]
+        }
+    ]
+}
