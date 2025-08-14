@@ -10,8 +10,8 @@ const __dirname = import.meta.dirname;
 const client = new Client({ intents: [ GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages ] });
 client.commands = new Collection();
 
-const db = new DbClient(dbURL);
-await db.connect(config.mongoURL);
+const db = new DbClient(config.mongoURL);
+await db.connect();
 
 const fisher = new Fisher();
 
