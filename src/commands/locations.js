@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 
 export const command = {
 	data: new SlashCommandBuilder()
@@ -6,23 +6,23 @@ export const command = {
 		.setDescription('List fishing spots.')
         .setIntegrationTypes(1)
         .setContexts(0, 1, 2),
-	async execute(interaction, userDB, fisher) {
+	async execute(interaction, userDB, gameManager) {
         if (!(await userDB.exists(interaction.user.id))) await userDB.addUser(interaction.user.id);
         var user = await userDB.getUser(interaction.user.id);
 
-        var desc = "";
+        var desc = '';
 
-        fisher.fishdata().forEach((location) => {
+        gameManager.fishData.forEach((location) => {
             desc += `- ${location.name} (requires lvl ${location.level_required})\n    > ${location.description}\n`;
         });
 
         let embed = new EmbedBuilder()
             .setAuthor({
-                name: "Locations",
+                name: 'Locations',
                 iconURL: interaction.user.displayAvatarURL()})
-            .setTitle("Fishing Spots")
+            .setTitle('Fishing Spots')
             .setDescription(desc)
-            .setFooter({ text: fisher.getLocationByID(user.location).name, iconURL: interaction.client.user.displayAvatarURL() })
+            .setFooter({ text: `Lvl${user.level}  |  ${gameManager.fishData[user.location].name}`, iconURL: interaction.client.user.displayAvatarURL() })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed], files: [] });

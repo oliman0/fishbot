@@ -1,10 +1,10 @@
-import fs from "node:fs";
+import fs from 'node:fs';
 
 export function GenerateTravelLocationChoices() {
-    const fishdb = JSON.parse(fs.readFileSync("src/data/fishdata.json", "utf-8"));
+    const fishdb = JSON.parse(fs.readFileSync('src/data/fish.json', 'utf-8'));
     const res = [];
 
-    fishdb.fish.forEach((location, index) => {
+    fishdb.forEach((location, index) => {
         res.push({ name: `${location.name} (Level ${location.level_required})`, value: index });
     });
 

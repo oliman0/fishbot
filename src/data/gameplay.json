@@ -1,0 +1,8 @@
+{
+    "level_xp_multiplier": 1.05,
+    "levelup_text": [
+        { "level": 10, "text": "Unlocked the **River**" },
+        { "level": 20, "text": "Unlocked the **Beach**" },
+        { "level": 30, "text": "Unlocked the **Sea**" }
+    ]
+}

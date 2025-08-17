@@ -1,0 +1,19 @@
+{
+    "bait": [
+        {
+            "name": "Basic Bait",
+            "level_required": 0,
+            "weight_modifier": 0,
+            "price": 15
+        }
+    ],
+    "rods": [
+
+    ],
+    "lure": [
+
+    ],
+    "misc": [
+
+    ]
+}

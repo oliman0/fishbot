@@ -1,9 +1,9 @@
-import fs from "node:fs";
-import path from "node:path";
-import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from "discord.js";
-import config from "../config.json" with { type: "json" };
-import { DbClient } from "./user.js";
-import { Fisher } from "./fisher.js";
+import fs from 'node:fs';
+import path from 'node:path';
+import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
+import config from '../config.json' with { type: 'json' };
+import { DbClient } from './user.js';
+import { GameManager } from './gameManager.js';
 
 const __dirname = import.meta.dirname;
 
@@ -15,9 +15,9 @@ client.selects = new Collection();
 const db = new DbClient(config.mongoURL);
 await db.connect();
 
-const fisher = new Fisher();
+const gameManager = new GameManager();
 
-const commandsPath = path.join(__dirname, "commands");
+const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
@@ -26,11 +26,11 @@ for (const file of commandFiles) {
 	if ('data' in command && 'execute' in command) {
 		client.commands.set(command.data.name, command);
 	} else {
-		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+		console.log(`[WARNING] The command at ${filePath} is missing a required 'data' or 'execute' property.`);
 	}
 }
 
-const buttonsPath = path.join(__dirname, "buttons");
+const buttonsPath = path.join(__dirname, 'buttons');
 const buttonFiles = fs.readdirSync(buttonsPath).filter(file => file.endsWith('.js'));
 for (const file of buttonFiles) {
 	const filePath = path.join(buttonsPath, file);
@@ -39,11 +39,11 @@ for (const file of buttonFiles) {
 	if ('data' in button && 'execute' in button) {
 		client.buttons.set(button.data.name, button);
 	} else {
-		console.log(`[WARNING] The button at ${filePath} is missing a required "data" or "execute" property.`);
+		console.log(`[WARNING] The button at ${filePath} is missing a required 'data' or 'execute' property.`);
 	}
 }
 
-const selectsPath = path.join(__dirname, "selects");
+const selectsPath = path.join(__dirname, 'selects');
 const selectFiles = fs.readdirSync(selectsPath).filter(file => file.endsWith('.js'));
 for (const file of selectFiles) {
 	const filePath = path.join(selectsPath, file);
@@ -52,7 +52,7 @@ for (const file of selectFiles) {
 	if ('data' in select && 'execute' in select) {
 		client.selects.set(select.data.name, select);
 	} else {
-		console.log(`[WARNING] The select at ${filePath} is missing a required "data" or "execute" property.`);
+		console.log(`[WARNING] The select at ${filePath} is missing a required 'data' or 'execute' property.`);
 	}
 }
 
@@ -70,7 +70,7 @@ client.on(Events.InteractionCreate, async interaction => {
 		}
 
 		try {
-			await command.execute(interaction, db, fisher);
+			await command.execute(interaction, db, gameManager);
 		} catch (error) {
 			console.error(error);
 			if (interaction.replied || interaction.deferred) {
@@ -81,15 +81,16 @@ client.on(Events.InteractionCreate, async interaction => {
 		}
 	}
 	else if (interaction.isButton()) {
-		const button = interaction.client.buttons.get(interaction.customId);
+		const customId = interaction.customId.split("?")[0];
+		const button = interaction.client.buttons.get(customId);
 
 		if (!button) {
-			console.error(`No button matching ${interaction.customId} was found.`);
+			console.error(`No button matching ${customId} was found.`);
 			return;
 		}
 
 		try {
-			await button.execute(interaction, db, fisher);
+			await button.execute(interaction, db, gameManager);
 		} catch (error) {
 			console.error(error);
 			if (interaction.replied || interaction.deferred) {
@@ -108,7 +109,7 @@ client.on(Events.InteractionCreate, async interaction => {
 		}
 
 		try {
-			await select.execute(interaction, db, fisher);
+			await select.execute(interaction, db, gameManager);
 		} catch (error) {
 			console.error(error);
 			if (interaction.replied || interaction.deferred) {
@@ -122,13 +123,13 @@ client.on(Events.InteractionCreate, async interaction => {
 
 client.login(config.token);
 
-process.on("exit", (code) => {
+process.on('exit', (code) => {
 	db.close();
 	client.destroy();
-	console.log("Exitting...", code);
+	console.log('Exitting...', code);
 });
 
 process.on('SIGINT', function() {
-    console.log( "\nGracefully shutting down from SIGINT" );
+    console.log( '\nGracefully shutting down from SIGINT' );
     process.exit();
 });

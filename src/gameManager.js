@@ -1,5 +1,4 @@
-import { RoleFlagsBitField } from "discord.js";
-import fs from "node:fs";
+import fs from 'node:fs';
 
 const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
 const avg = (a, b) => (a + b)/2;
@@ -22,28 +21,40 @@ function randn_bm(min, max, skew) {
   return num
 }
 
-const Tiers = [ "Common", "Uncommon", "Rare", "Epic", "Legendary" ];
+const Tiers = [ 'Common', 'Uncommon', 'Rare', 'Epic', 'Legendary' ];
 
-export class Fisher {
-    #fishdb
+export class GameManager {
+    #fishData
+    #gameData
+    #itemsData
 
-    constructor() {
-        this.#fishdb = JSON.parse(fs.readFileSync("src/data/fishdata.json", "utf-8"));
+    get fishData() {
+        return this.#fishData;
     }
 
-    fishdata() { return this.#fishdb.fish; }
+    get gameData() {
+        return this.#gameData;
+    }
+
+    get itemsData() {
+        return this.#itemsData;
+    }
+
+    constructor() {
+        this.#fishData = JSON.parse(fs.readFileSync('src/data/fish.json', 'utf-8'));
+        this.#gameData = JSON.parse(fs.readFileSync('src/data/gameplay.json', 'utf-8'));
+        this.#itemsData = JSON.parse(fs.readFileSync('src/data/items.json', 'utf-8'));
+    }
 
     catch(locationID) {
-        const fish = this.#fishdb.fish;
-
-        var chance = Math.floor(Math.random()*fish[locationID].total_chance)+1;
+        var chance = Math.floor(Math.random()*this.#fishData[locationID].total_chance)+1;
 
         var i = -1;
         while (chance > 0) {
             i++;
-            chance -= fish[locationID].catch_chances[i];
+            chance -= this.#fishData[locationID].catch_chances[i];
         }
-        const caughtFish = fish[locationID].fish[i];
+        const caughtFish = this.#fishData[locationID].fish[i];
 
         i = -1;
         chance = Math.floor(Math.random()*caughtFish.total_chance)+1;
@@ -62,14 +73,10 @@ export class Fisher {
         return { name: caughtFish.display_name, tier: Tiers[tier], weight: weight, gold: gold };
     }
 
-    getLocationByID(locationID) {
-        return this.#fishdb.fish[locationID];
-    }
-
     async checkLevel(user, userDB) {
         if (user.gold < user.xp_required) return -1;
 
-        const xpRequiredMul = this.#fishdb.level_xp_multiplier;
+        const xpRequiredMul = this.#gameData.level_xp_multiplier;
         var newLevel = user.level;
         var newXpRequired = user.xp_required;
         var newXpRequiredIncrease = user.xp_required_increase;
@@ -86,8 +93,8 @@ export class Fisher {
             xp_required_increase: newXpRequiredIncrease
         });
 
-        const lvlupText = this.#fishdb.levelup_text.find((entry) => entry.level == newLevel);
+        const lvlupText = this.#gameData.levelup_text.find((entry) => entry.level == newLevel);
 
-        return { level: newLevel, text: lvlupText !== undefined ? lvlupText.text : "" };
+        return { level: newLevel, text: lvlupText !== undefined ? lvlupText.text : '' };
     }
 }

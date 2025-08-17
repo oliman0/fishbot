@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
 export class DbClient {
     #mongoClient;
@@ -22,16 +22,16 @@ export class DbClient {
             xp_required_increase: 100
         };
 
-        await this.#mongoClient.db("userdata").collection("users").insertOne(user);
+        await this.#mongoClient.db('userdata').collection('users').insertOne(user);
     }
 
     async getUser(id) {
-        const user = await this.#mongoClient.db("userdata").collection("users").findOne({ id: id });
+        const user = await this.#mongoClient.db('userdata').collection('users').findOne({ id: id });
         return user;
     }
 
     async editUser(id, editData) {
-        this.#mongoClient.db("userdata").collection("users").updateOne({ id: id }, { $set: editData });
+        this.#mongoClient.db('userdata').collection('users').updateOne({ id: id }, { $set: editData });
     }
 
     async exists(id) {

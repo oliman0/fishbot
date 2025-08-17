@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } from 'discord.js';
 
 export const command = {
 	data: new SlashCommandBuilder()
@@ -10,19 +10,19 @@ export const command = {
         )
         .setIntegrationTypes(1)
         .setContexts(0, 1, 2),
-	async execute(interaction, userDB, fisher) {
+	async execute(interaction, userDB, gameManager) {
         const target = interaction.options.getUser('target') ?? interaction.user;
 
         if (!(await userDB.exists(target.id))) {
-            const cooldownGif = new AttachmentBuilder("./res/cooldown.gif");
+            const cooldownGif = new AttachmentBuilder('./res/cooldown.gif');
 
             let embed = new EmbedBuilder()
             .setAuthor({
-                name: "Stats",
+                name: 'Stats',
                 iconURL: interaction.user.displayAvatarURL()})
-            .setTitle("User not found 3:")
-            .setImage("attachment://cooldown.gif")
-            .setFooter({ text: "???", iconURL: interaction.client.user.displayAvatarURL() })
+            .setTitle('User not found 3:')
+            .setImage('attachment://cooldown.gif')
+            .setFooter({ text: '???', iconURL: interaction.client.user.displayAvatarURL() })
             .setTimestamp();
 
             await interaction.reply({ embeds: [embed], files: [cooldownGif] });
@@ -33,12 +33,12 @@ export const command = {
 
         let embed = new EmbedBuilder()
             .setAuthor({
-                name: "Stats",
+                name: 'Stats',
                 iconURL: target.displayAvatarURL()})
             .setTitle(`***${target.displayName}'s*** Stats!`)
             .setDescription(`- Level: *${user.level} (${user.gold-user.xp_required+user.xp_required_increase}xp/${user.xp_required_increase}xp)*\n- Gold: *${user.gold}*\n- Catches: *${user.catches}*`)
             .setThumbnail(target.displayAvatarURL())
-            .setFooter({ text: fisher.getLocationByID(user.location).name, iconURL: interaction.client.user.displayAvatarURL() })
+            .setFooter({ text: gameManager.fishData[user.location].name, iconURL: interaction.client.user.displayAvatarURL() })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed], files: [] });
