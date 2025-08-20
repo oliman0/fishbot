@@ -80,7 +80,7 @@ export const command = {
             .setAuthor({
                 name: 'Travel',
                 iconURL: interaction.user.displayAvatarURL()})
-            .setTitle(`***${interaction.user.displayName}*** is traveling to the **${gameManager.fishData[user.location].name}**`)
+            .setTitle(`***${interaction.user.displayName}*** is traveling to the **${gameManager.fishData[location].name}**`)
             .setImage(`attachment://${travelGifName}`)
             .setFooter({ text: `Lvl${user.level}`, iconURL: interaction.client.user.displayAvatarURL() })
             .setTimestamp();
